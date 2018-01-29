@@ -25,5 +25,10 @@
 		"psr-4" : {
 			"Beotie\\PSR7\\" : "src"
 		}
-	}
+	},
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    }
 }
