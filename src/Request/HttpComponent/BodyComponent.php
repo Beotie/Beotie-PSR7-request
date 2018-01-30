@@ -94,6 +94,10 @@ trait BodyComponent
      */
     public function getParsedBody()
     {
+        if ($this->httpRequest->getMethod() === 'POST') {
+            return $this->httpRequest->request->all();
+        }
+
         return $this->httpRequest->getContent();
     }
 
