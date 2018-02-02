@@ -94,7 +94,9 @@ trait BodyComponent
      */
     public function getParsedBody()
     {
-        if ($this->httpRequest->getMethod() === 'POST') {
+        if ($this->httpRequest->getMethod() === 'POST'
+            && $this->httpRequest->headers->get('Content-Type') == 'application/x-www-form-urlencoded'
+        ) {
             return $this->httpRequest->request->all();
         }
 

@@ -10,7 +10,7 @@
 	],
 	"minimum-stability" : "dev",
 	"require" : {
-		"beotie/psr7_stream" : "dev-master",
+		"beotie/psr7_stream" : "^1",
 		"symfony/http-foundation" : "^3.3@stable"
 	},
 	"require-dev" : {

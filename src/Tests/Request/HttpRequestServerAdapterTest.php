@@ -204,6 +204,7 @@ class HttpRequestServerAdapterTest extends TestCase
      *
      * @param MockObject $mock       The mock object to hydrate with a new Matcher instance
      * @param array      $parameters An array that configure the given MockObject's Matcher
+     * @param bool       $firstLevel Internal use only
      *
      * @see     HttpRequestServerAdapterTest::getParamResolver
      * @return  void
@@ -237,7 +238,7 @@ class HttpRequestServerAdapterTest extends TestCase
      *  );
      * </pre>
      */
-    private function createInvocation(MockObject $mock, array $parameters) : void
+    private function createInvocation(MockObject $mock, array $parameters, $firstLevel = true) : void
     {
         $resolver = $this->getParamResolver();
 
@@ -260,8 +261,12 @@ class HttpRequestServerAdapterTest extends TestCase
                     ]
                 ];
 
-                $this->createInvocation($mock, $fallbackParameters);
-                return;
+                $this->createInvocation($mock, $fallbackParameters, false);
+
+                if (!$firstLevel) {
+                    return;
+                }
+                continue;
             }
 
             $invoker = $mock->expects($params['expects']);

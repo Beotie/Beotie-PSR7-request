@@ -94,6 +94,42 @@ trait BodyTestTrait
     }
 
     /**
+     * Test get url encoded ParsedBody
+     *
+     * This method validate the HttpRequestServerAdapter::getParsedBody method
+     *
+     * @return void
+     */
+    public function testGetUrlEncodedParsedBody()
+    {
+        $content = ['key' => 'value'];
+        $request = $this->getRequest(
+            [
+                'getContent' => $content,
+                'getMethod' => 'POST'
+            ],
+            [
+                'request' => [
+                    'all' => $content
+                ],
+                'headers' => [
+                    [
+                        'expects' => $this->once(),
+                        'method' => 'get',
+                        'with' => [$this->equalTo('Content-Type')],
+                        'willReturn' => 'application/x-www-form-urlencoded'
+                    ]
+                ]
+            ]
+        );
+
+        $fileFactory = $this->createMock(EmbeddedFileFactoryInterface::class);
+        $instance = new HttpRequestServerAdapter($request, $fileFactory);
+
+        $this->getTestCase()->assertEquals($content, $instance->getParsedBody());
+    }
+
+    /**
      * Test getParsedBody
      *
      * This method validate the HttpRequestServerAdapter::getParsedBody method
